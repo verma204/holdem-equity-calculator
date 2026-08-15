@@ -1,10 +1,18 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 import threading
-
+import equityCalculator
 
 def create_widget(parent, widget_type, **options):
     return widget_type(parent, **options)
+
+def onClick_Run():
+    range1 = range1Entry.get()
+    range2 = range2Entry.get()
+    flop = flopEntry.get()
+    turn = turnEntry.get()
+    river = riverEntry.get()
+    print(range1)
 
 window = create_widget(None, tk.Tk)
 window.title("GUI")
@@ -68,7 +76,7 @@ riverLabel = create_widget(
 riverLabel.grid(row = 3, column = 2)
 
 runButton = create_widget(
-    frame, tk.Button, text = "RUN"
+    frame, tk.Button, text = "RUN", command = onClick_Run
 )
 runButton.grid(row = 4, column = 2)
 
