@@ -105,10 +105,7 @@ def rangeOnRange(board, player1_range, player2_range):
 
 
 
-def userInput():
-    board = input("Board: ")
-    player1 = input("Range of player 1: ")
-    player2 = input("Range of player 2: ")
+
 
 
 
