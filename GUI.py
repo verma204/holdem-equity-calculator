@@ -14,6 +14,23 @@ def onClick_Run():
     river = riverEntry.get()
     print(range1)
 
+def validateFlop(proposedText):
+    allowed = set("23456789TJQKAcdhsCDHS")
+    if proposedText == "":
+        return True
+    if len(proposedText) > 6:
+        return False
+    return all(character in allowed for character in proposedText)
+
+def validateStreet(proposedText):
+    allowed = set("23456789TJQKAcdhsCDHS")
+    if proposedText == "":
+        return True
+    if len(proposedText) > 2:
+        return False
+    return all(character in allowed for character in proposedText)
+    
+
 window = create_widget(None, tk.Tk)
 window.title("GUI")
 
@@ -49,7 +66,7 @@ range2Equity = create_widget(
 range2Equity.grid(row = 1, column = 2)
 
 flopEntry = create_widget(
-    frame, tk.Entry, width = 10
+    frame, tk.Entry, width = 10, validate = "key", validatecommand = (window.register(validateFlop), "%P")
 )
 flopEntry.grid(row = 2, column = 0)
 flopLabel = create_widget(
@@ -58,7 +75,7 @@ flopLabel = create_widget(
 flopLabel.grid(row = 3, column = 0)
 
 turnEntry = create_widget(
-    frame, tk.Entry, width = 3
+    frame, tk.Entry, width = 3, validate = "key", validatecommand = (window.register(validateStreet), "%P")
 )
 turnEntry.grid(row = 2, column = 1)
 turnLabel = create_widget(
@@ -67,7 +84,7 @@ turnLabel = create_widget(
 turnLabel.grid(row = 3, column = 1)
 
 riverEntry = create_widget(
-    frame, tk.Entry, width = 3
+    frame, tk.Entry, width = 3, validate = "key", validatecommand = (window.register(validateStreet), "%P")
 )
 riverEntry.grid(row = 2, column = 2)
 riverLabel = create_widget(

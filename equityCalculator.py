@@ -3,6 +3,17 @@ import treys
 
 evaluator = treys.Evaluator()
 
+def validateRangeText(text, fieldName):
+    text = text.strip()
+
+    if not text:
+        raise ValueError(f"{fieldName} cannot be empty.")
+
+    try:
+
+    
+
+
 player1range = [
     [
         treys.Card.new("Kh"),
@@ -109,5 +120,4 @@ def rangeOnRange(board, player1_range, player2_range):
 
 
 
-print(rangeOnRange(board, player1range, player2range))
     
