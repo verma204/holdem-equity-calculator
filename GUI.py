@@ -20,10 +20,27 @@ def onClick_Run():
     player_1_equity = equityCalculator.rangeOnRange(parsed_board, parsed_range_1, parsed_range_2)
     player_2_equity = 1.0 - player_1_equity
 
-    range1Equity.config(text=f"{player_1_equity * 100 :.2f}%")
-    range2Equity.config(text=f"{player_2_equity * 100 :.2f}%")
+    range1Equity.config(text=f"{player_1_equity * 100 :.2f}%", bg = equityColor(player_1_equity))
+    range2Equity.config(text=f"{player_2_equity * 100 :.2f}%", bg = equityColor(player_2_equity))
 
+def equityColor(equity):
+    equity = max(0, min(1, equity))
 
+    if equity < 0.5:
+        # Red -> Yellow
+        ratio = equity / 0.5
+
+        red = 255
+        green = int(255 * ratio)
+
+    else:
+        # Yellow -> Green
+        ratio = (equity - 0.5) / 0.5
+
+        red = int(255 * (1 - ratio))
+        green = 255
+
+    return f"#{red:02x}{green:02x}00"
 
 def validateFlop(proposedText):
     allowed = set("23456789TJQKAcdhsCDHS")
