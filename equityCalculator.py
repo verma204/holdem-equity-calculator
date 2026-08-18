@@ -3,79 +3,6 @@ import treys
 
 evaluator = treys.Evaluator()
 
-def validateRangeText(text, fieldName):
-    text = text.strip()
-
-    if not text:
-        raise ValueError(f"{fieldName} cannot be empty.")
-
-    try:
-
-    
-
-
-player1range = [
-    [
-        treys.Card.new("Kh"),
-        treys.Card.new("Kd")
-    ],
-    [
-        treys.Card.new("Ks"),
-        treys.Card.new("Kd")
-    ],
-    [
-        treys.Card.new("Kc"),
-        treys.Card.new("Kd")
-    ]
-]
-
-
-player2range = [
-    [
-        treys.Card.new("As"),
-        treys.Card.new("Ac")
-    ],
-    [
-        treys.Card.new("As"),
-        treys.Card.new("Ah")
-    ],
-    [
-        treys.Card.new("As"),
-        treys.Card.new("Ad")
-    ],
-    [
-        treys.Card.new("Ac"),
-        treys.Card.new("Ah")
-    ],
-    [
-        treys.Card.new("Ac"),
-        treys.Card.new("Ad")
-    ],
-    [
-        treys.Card.new("Ah"),
-        treys.Card.new("Ad")
-    ],
-    [
-        treys.Card.new("Qs"),
-        treys.Card.new("Qc")
-    ],
-    [
-        treys.Card.new("Qd"),
-        treys.Card.new("Qh")
-    ]
-]
-
-
-
-board = [
-    treys.Card.new("7s"),
-    treys.Card.new("7d"),
-    treys.Card.new("2s"),
-    treys.Card.new("2d"),
-    treys.Card.new("5h"),
-]
-
-
 
 def handOnHand(board, player1, player2):
     rank1 = evaluator.evaluate(board, player1)
@@ -98,9 +25,8 @@ def handOnRange(board, player1, player2_range):
             continue
         total_equity += handOnHand(board, player1, player2)
         count += 1
-
-        if count == 0:
-            raise ValueError("No legal hands in range")
+    if count == 0:
+        raise ValueError("No legal hands in range")
 
     return total_equity / count
 

@@ -1,7 +1,7 @@
 import tkinter as tk
-from tkinter import ttk, messagebox
 import threading
 import equityCalculator
+import inputValidation
 
 def create_widget(parent, widget_type, **options):
     return widget_type(parent, **options)
@@ -12,7 +12,18 @@ def onClick_Run():
     flop = flopEntry.get()
     turn = turnEntry.get()
     river = riverEntry.get()
-    print(range1)
+
+    parsed_range_1 = inputValidation.createRange(range1)
+    parsed_range_2 = inputValidation.createRange(range2)
+    parsed_board = inputValidation.createBoard(flop, turn, river)
+
+    player_1_equity = equityCalculator.rangeOnRange(parsed_board, parsed_range_1, parsed_range_2)
+    player_2_equity = 1.0 - player_1_equity
+
+    range1Equity.config(text=f"{player_1_equity * 100 :.2f}%")
+    range2Equity.config(text=f"{player_2_equity * 100 :.2f}%")
+
+
 
 def validateFlop(proposedText):
     allowed = set("23456789TJQKAcdhsCDHS")
@@ -29,7 +40,12 @@ def validateStreet(proposedText):
     if len(proposedText) > 2:
         return False
     return all(character in allowed for character in proposedText)
-    
+
+def validateRange(proposedText):
+    allowed = set("23456789TJQKAcdhsCDHSoO+,*")
+    if proposedText =="":
+        return True
+    return all(character in allowed for character in proposedText)
 
 window = create_widget(None, tk.Tk)
 window.title("GUI")
@@ -44,7 +60,7 @@ range1Label = create_widget(
 )
 range1Label.grid(row = 0, column = 0)
 range1Entry = create_widget(
-    frame, tk.Entry
+    frame, tk.Entry, width = 30, validate = "key", validatecommand = (window.register(validateRange), "%P")
 )
 range1Entry.grid(row = 0, column = 1)
 range1Equity = create_widget(
@@ -57,7 +73,7 @@ range2Label = create_widget(
 )
 range2Label.grid(row = 1, column = 0)
 range2Entry = create_widget(
-    frame, tk.Entry, 
+    frame, tk.Entry, width = 30, validate = "key", validatecommand = (window.register(validateRange), "%P")
 )
 range2Entry.grid(row = 1, column = 1)
 range2Equity = create_widget(
