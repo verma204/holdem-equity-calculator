@@ -40,6 +40,41 @@ def rangeOnRange(board, player1_range, player2_range):
         count += 1
     return total_equity / count
 
+def evaluateTurn(board, player1_range, player2_range):
+
+    total_equity = 0.0
+    count = 0
+
+    ranks='23456789TJQKA'
+    suits='chds' 
+    for rank in ranks:
+        for suit in suits:
+            cardInt = treys.Card.new(rank + suit)
+            if cardInt not in board:
+                total_equity += rangeOnRange(board + [cardInt], player1_range, player2_range)
+                count += 1
+
+    return total_equity / count
+
+
+def evaluateFlop(board, player1_range, player2_range):
+
+    total_equity = 0.0
+    count = 0
+
+    ranks='23456789TJQKA'
+    suits='chds' 
+    for rank in ranks:
+        for suit in suits:
+            cardInt = treys.Card.new(rank + suit)
+            if cardInt not in board:
+                total_equity += evaluateTurn(board + [cardInt], player1_range, player2_range)
+                count += 1
+
+    return total_equity / count
+
+
+    
 
 
 
